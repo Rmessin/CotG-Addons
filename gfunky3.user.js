@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name gfunky3
 // @namespace www.tampermonkey.com
-// @version 3.2.2
+// @version 3.2.5
 // @description gfunky3
 // @author Greety
 // @match https://*.crownofthegods.com/*
@@ -12,8 +12,8 @@
 // ==/UserScript==
 /*
 
-Version:  3.2.2.4.21
-Last Modified:  April 20,2023
+Version:  3.2.5.7
+Last Modified:  May 7,2023
 
 
  */
@@ -53,9 +53,9 @@ Last Modified:  April 20,2023
 			  <br>
 			  <div id='bottomcrownpic'></div>
 			  <span style='margin-left: 5%;'>
-				<h4 style='text-align:center;color:green;'>Update 3.2.2</h4>
+				<h4 style='text-align:center;color:green;'>Update 3.2.5</h4>
 				<br>
-				<h4 style='text-align:center;color:green;'>Apr 24, 2023</h4>
+				<h4 style='text-align:center;color:green;'>May 7, 2023</h4>
 			  </span>
 			  <br>
 			  <br>
@@ -2079,45 +2079,45 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 	
 
 
-const updateContinentFromTableRow = (tableRow) => {
-  const oHBody = document.querySelector('#oHBody');
-  const dhBody = document.querySelector('#dhBody');
+	const updateContinentFromTableRow = (tableRow) => {
+	  const oHBody = document.querySelector('#oHBody');
+	  const dhBody = document.querySelector('#dhBody');
 
-  let coordinatesCell;
+	  let coordinatesCell;
 
-  if (oHBody && tableRow.closest('#oHBody')) {
-    coordinatesCell = tableRow.querySelector('td:nth-child(6) > span');
-  } else if (dhBody && tableRow.closest('#dhBody')) {
-    coordinatesCell = tableRow.querySelector('td:nth-child(5) > span');
-  }
+	  if (oHBody && tableRow.closest('#oHBody')) {
+		coordinatesCell = tableRow.querySelector('td:nth-child(6) > span');
+	  } else if (dhBody && tableRow.closest('#dhBody')) {
+		coordinatesCell = tableRow.querySelector('td:nth-child(5) > span');
+	  }
 
-  if (coordinatesCell) {
-    const coordinates = coordinatesCell.textContent;
-    const continent = parseInt(coordinates.split(':')[1][0] + coordinates.split(':')[0][0]);
-    tableRow.setAttribute('co', continent);
-  }
-};
+	  if (coordinatesCell) {
+		const coordinates = coordinatesCell.textContent;
+		const continent = parseInt(coordinates.split(':')[1][0] + coordinates.split(':')[0][0]);
+		tableRow.setAttribute('co', continent);
+	  }
+	};
 
-const observerCallback = (mutationsList, observer) => {
-  for (const mutation of mutationsList) {
-    if (mutation.type === 'childList') {
-      const oHBody = document.querySelector('#oHBody');
-      if (oHBody) {
-        oHBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
-      }
+	const observerCallback = (mutationsList, observer) => {
+	  for (const mutation of mutationsList) {
+		if (mutation.type === 'childList') {
+		  const oHBody = document.querySelector('#oHBody');
+		  if (oHBody) {
+			oHBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
+		  }
 
-      const dhBody = document.querySelector('#dhBody');
-      if (dhBody) {
-        dhBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
-      }
-    }
-  }
-};
+		  const dhBody = document.querySelector('#dhBody');
+		  if (dhBody) {
+			dhBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
+		  }
+		}
+	  }
+	};
 
-const aipTabs = document.querySelector('#aipTabs');
-const continentObserver = new MutationObserver(observerCallback);
+	const aipTabs = document.querySelector('#aipTabs');
+	const continentObserver = new MutationObserver(observerCallback);
 
-continentObserver.observe(aipTabs, { childList: true, subtree: true });
+	continentObserver.observe(aipTabs, { childList: true, subtree: true });
 
 
 
