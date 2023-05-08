@@ -2075,7 +2075,50 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 
 
 
-		const options = {};
+	const options = {};
+	
+
+
+const updateContinentFromTableRow = (tableRow) => {
+  const oHBody = document.querySelector('#oHBody');
+  const dhBody = document.querySelector('#dhBody');
+
+  let coordinatesCell;
+
+  if (oHBody && tableRow.closest('#oHBody')) {
+    coordinatesCell = tableRow.querySelector('td:nth-child(6) > span');
+  } else if (dhBody && tableRow.closest('#dhBody')) {
+    coordinatesCell = tableRow.querySelector('td:nth-child(5) > span');
+  }
+
+  if (coordinatesCell) {
+    const coordinates = coordinatesCell.textContent;
+    const continent = parseInt(coordinates.split(':')[1][0] + coordinates.split(':')[0][0]);
+    tableRow.setAttribute('co', continent);
+  }
+};
+
+const observerCallback = (mutationsList, observer) => {
+  for (const mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      const oHBody = document.querySelector('#oHBody');
+      if (oHBody) {
+        oHBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
+      }
+
+      const dhBody = document.querySelector('#dhBody');
+      if (dhBody) {
+        dhBody.querySelectorAll('tr').forEach(updateContinentFromTableRow);
+      }
+    }
+  }
+};
+
+const aipTabs = document.querySelector('#aipTabs');
+const continentObserver = new MutationObserver(observerCallback);
+
+continentObserver.observe(aipTabs, { childList: true, subtree: true });
+
 
 
 	setTimeout(function() {
@@ -2194,6 +2237,11 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 						coonvalue();
 
 					}
+					if (url.indexOf('ofdf.php') !=-1) {
+						//responseData = JSON.parse(this.response);
+						//updateContinent(responseData);	
+												
+					}
 					
 				}, false);
 				open.apply(this, arguments);
@@ -2231,6 +2279,10 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
   // replace all non-alphanumeric characters with whitespace
   return str.replace(/[^a-zA-Z0-9\s]/g, " ");
 }
+
+
+
+
 
 function checkPoll2Layout() {
 	if (poll2.city) {
@@ -7932,6 +7984,11 @@ resetAttackOrders();
 		$('#ui-id-37').text("Incoming");
 		$('#ui-id-38').text("Def History");
 		$('#ui-id-39').text("Blessed");
+		
+		
+
+
+		
 		
 		const firstparaAIP = document.querySelector('#firstparaAIP');
 		const mycitiesonlyOutgoings = document.querySelector('#mycitiesonlyOutgoings');
