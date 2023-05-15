@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name         W[] - Player Intel
-// @description  Player Intel for {Alliance Name}
+// @description  Player Intel {AllianceName}
 // @namespace    http://tampermonkey.net/
-// @version      5
-// @license      MIT
+// @version      5.1
 // @author       Fact
 // @match        https://w[].crownofthegods.com/
 // @grant        none
@@ -12,46 +11,55 @@
 
 
 		// Only leaders should be distributing these to their alliances as each alliance's documents must be unique
-		// IMPORTANT  change the [] above with your world number
+		// IMPORTANT change the [] above with your world number
 
-(function() {
-    'use strict';
-// only change the CONFIG
-    const CONFIG = {
-		//this is the public version of the spreadsheet that you will need to make to make this work
-        SPREADSHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSGMTOgkhoCuETefmHQMQVU6nT1dvvHCMSgltVxM3fdcoVnJm1vSokAatywTZqZwWNp9JaYmyTdXvWh/pubhtml",
-		
-		// After you have your questions set up in your form should look like this:
-		/*
-		Troop Type 
+        /* using Google Sheets: 
+         Create a new Spreadsheet. Feel Free to call it whatever you'd like
+         Create a Form. Again, call it whatever you'd like
+        
+        To make the script work with as little editing as possible, follow this format for your questions:
+        Troop Type 
 		Coordinates
 		Continent
 		Player Name
 		Alliance Name
 		Land or Water
 		City or Castle
+
+        once this is set up you will want to make sure the document is published to the web. and copy the link to put it for the SPREADSHEET_URL. 
+        the current format of this script asks for the whole document to be published. if you are advanced you can modify it to only publish a single sheet
+
+
+         */
+        
+
+(function() {
+    'use strict';
+    // Beginners: only change the CONFIG
+    const CONFIG = {
+		//this is the public version of the spreadsheet that you will need to make to make this work
+        SPREADSHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSNhxLRiUX59qAVkTI88ZJvF_spEwlXgCw20Yx6mcebNZ-2TYd3lcDg4efDuCY-nxdyL6_DOSWMW1Oy/pubhtml",
 		
-		*/
-		// click get prefilled link in the right nav area
-		// Generally I write Coords, Cont, PN, AN, Land, Castle in my  prefilled form so I can identify them later and click get link
-		// Copy link and paste it into a note or word document. 
 		/*
-		you link should look something like this: 	https://docs.google.com/forms/d/e/1FAIpQLSfi0nUJiNDdYcOGZtbEQ-QI10DlyTcNAivhXz25khHJJIiquQ/viewform?usp=pp_url&entry.2074846360=coords&entry.1188131177=pn&entry.441486065=an&entry.621474224=cn&entry.865387645=water&entry.464167876=castled
+		 click get prefilled link for your form in the right nav area of "edit form"
+		 Generally I write Coords, Cont, PN, AN, Land, Castle (or anything that allows me to identify which entry the each are) in my prefilled form so I can identify them later and click get link
+		 Copy link and paste it into a note or word document.
 		
-		in this example citycoords should be 2074846360 as you see below it is. now my document is set up slightly different as you can see my next entry is actually PN,
-		which is player Name so cityplayername is the next number to use instead of citycont. this is why I write inside my prefilled form to make sure I get it right.
+		your link should look something like this: 	https://docs.google.com/forms/d/e/1FAIpQLSfXBogdEh03SKJZb6rHkyLX5ZXY2bSj9fUAzq5KYUxq6GfO8g/viewform?usp=pp_url&entry.271617078=Coords&entry.1622971848=+CN&entry.1123426270=PN&entry.1186888858=AN&entry.1882198345=Land&entry.2140514447=Castle
+		in this example citycoords should be 271617078 as you see below it is. do the same for the rest.
 		
-		Generally you wont need to change the sheet name unless you name it something other than Sheet1
+        Generally you wont need to change the sheet name unless you name it something other than Form Responses 1, however if you do, you MUST update the SHEET_NAME variable below
 		*/
-		PREFILLED_FORM_URL: " https://docs.google.com/forms/d/e/1FAIpQLSfi0nUJiNDdYcOGZtbEQ-QI10DlyTcNAivhXz25khHJJIiquQ/viewform?usp=pp_url",
-        SHEET_NAME: 'Sheet1',
+		PREFILLED_FORM_URL: " https://docs.google.com/forms/d/e/1FAIpQLSfXBogdEh03SKJZb6rHkyLX5ZXY2bSj9fUAzq5KYUxq6GfO8g/viewform?usp=pp_url",
+        // you will grab the preFilled URL up to the &entry of your link you copied. 
+        SHEET_NAME: 'Form Responses 1', // be careful not to remove the quotes or comma when you replace this data with your own
         ENTRY_PARAM_IDS: {
-            citycoords: '2074846360',
-			citycont: '621474224',
-            cityplayername: '1188131177',
-            cityplayeralliance: '441486065',
-			cityWater: '865387645',
-			cityCastle: '464167876'
+            citycoords: '271617078',  // be careful not to remove the quotes or comma when you replace this data with your own
+			citycont: '1622971848',  // be careful not to remove the quotes or comma when you replace this data with your own
+            cityplayername: '1123426270',  // be careful not to remove the quotes or comma when you replace this data with your own
+            cityplayeralliance: '1186888858',  // be careful not to remove the quotes or comma when you replace this data with your own
+			cityWater: '1882198345',  // be careful not to remove the quotes or comma when you replace this data with your own
+			cityCastle: '2140514447',  // be careful not to remove the quotes or comma when you replace this data with your own
         }
     };
 	
@@ -59,9 +67,10 @@
 	/*
 	
 	
-	
+	If you followed the above format,
 	DO NOT TOUCH ANYTHING UNDER THIS LINE
 	
+    if you have changed which column you have items you will need to modify the script to match your format
 	
 	*/ 
     // Load the specified sheet from the spreadsheet
@@ -138,9 +147,10 @@
         };
         const entryParamStr = getEntryParamStr(entryParams);
         const formResponseUrl = `${formUrl}?${entryParamStr}`;
-        const discoveredTroopInfo = data[CONFIG.SHEET_NAME].find(entry => $("#citycoords").text() === entry[1]);
-        const troopsHereText = discoveredTroopInfo ? `${discoveredTroopInfo[0].split("/")[1]}/${discoveredTroopInfo[0].split("/")[0]}: ${discoveredTroopInfo[2]}` : "No Info";
-        
+        const discoveredTroopInfo = data[CONFIG.SHEET_NAME].find(entry => $("#citycoords").text() === entry[2]);
+        // note this is set to entry[2] because it starts at 0, so the third column is number 2 so if you design your sheet differently, you will need to match the city coords with the correct column here, otherwise it will always say "no Info"
+        const troopsHereText = discoveredTroopInfo ? `${discoveredTroopInfo[0].split("/")[1]}/${discoveredTroopInfo[0].split("/")[0]}: ${discoveredTroopInfo[1]}` : "No Info";
+        // the current format is month/day : troopInfo you can adjust this if you prefer 
 		$("#TroopsHere").text(troopsHereText);
         $("#FormLinkGFUNKY").html(`<a href="${formResponseUrl}" target="_blank">Open in form</a>`);
     }
@@ -168,9 +178,7 @@
                 WatchCity.observe(document.querySelector("#cityplayername"), { childList: true });
                 WatchCity.observe(document.querySelector("#cityplayeralliance"), { childList: true });
                 WatchCity.observe(document.querySelector("#citycont"), { childList: true });
-                // Observe changes in #landframe
                 WatchCity.observe(document.querySelector("#landframe"), { attributes: true, attributeFilter: ['class'] });
-                // Observe changes in #citbtyp
                 WatchCity.observe(document.querySelector("#citbtyp"), { attributes: true, attributeFilter: ['class'] });
 
                 
