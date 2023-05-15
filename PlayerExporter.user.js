@@ -1,9 +1,9 @@
 
 // ==UserScript==
-// @name FactExporter
+// @name PlayerExporter
 // @namespace www.tampermonkey.com
 // @version 3
-// @description Exporter
+// @description Exporter for Players
 // @author Fact
 // @match https://*.crownofthegods.com/*
 // @include https://*.crownofthegods.com/?s=*
