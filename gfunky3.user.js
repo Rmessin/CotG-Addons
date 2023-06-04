@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name gfunky3
 // @namespace www.tampermonkey.com
-// @version 3.2.5
+// @version 3.2.6
 // @description gfunky3
 // @author Greety
 // @match https://*.crownofthegods.com/*
@@ -12,8 +12,8 @@
 // ==/UserScript==
 /*
 
-Version:  3.2.5.7
-Last Modified:  May 7,2023
+Version:  3.2.6.4
+Last Modified:  June 4,2023
 
 
  */
@@ -108,6 +108,10 @@ Last Modified:  May 7,2023
 	$('#rqitemss').appendTo('#recruitmentQueueWindow');
 	$('#bqitemss').appendTo('#buildQueueWindow');
 	$('#tbnwbbtbl').appendTo('#resInfo');
+	const element = document.getElementById("itemover");
+	const anchorElement = element.querySelector("a");
+	anchorElement.innerHTML = "My Items";
+
 
 	/*
 
@@ -1176,7 +1180,7 @@ Last Modified:  May 7,2023
 
 */
 
-cotgsubscribe.subscribe( "regional", function( data ) {});
+
  // run the function every 5 seconds
 
 		const gfunkyLayouts = {
@@ -2120,7 +2124,7 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 	continentObserver.observe(aipTabs, { childList: true, subtree: true });
 
 
-
+	
 	setTimeout(function() {
 		(function(open) {
 			XMLHttpRequest.prototype.open = function() {
@@ -2199,7 +2203,7 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 							poll2.OGA = saveoga;
 						}
 						if ('bd' in poll2.city) {
-							buildingdata= poll2.city.bd;
+							buildingdata = poll2.city.bd;
 							makebuildcount();
 						}
 						if ('clc' in poll2.player) {
@@ -2228,11 +2232,11 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 
 						//////console.log('Coords: ' + city.x + ':' + city.y );
 						city.mo = cdata.mo;
-						setTimeout(function() {
+						
 							updateattack();
 							updatedef();
 							makebuildcount();
-						}, 2000);
+						
 
 						coonvalue();
 
@@ -2249,11 +2253,8 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 		})(XMLHttpRequest.prototype.open);
 		////console.log("Gfunky+ Has Loaded. Presented by Greety and Fact ");
 	}, 8000);
-
-	$('#cvs').css('left', '420px');
-	$('canvas').css('width', '100%');
-
-
+	
+	
 	function cityCoords() {
 	  const leftover = document.getElementById('citcoordspq');
 	  const cityName = document.getElementById('qb23');
@@ -2276,9 +2277,9 @@ cotgsubscribe.subscribe( "regional", function( data ) {});
 
 
 	function removeNonAlphaNumericCharacters(str) {
-  // replace all non-alphanumeric characters with whitespace
-  return str.replace(/[^a-zA-Z0-9\s]/g, " ");
-}
+ 		 // replace all non-alphanumeric characters with whitespace
+  		return str.replace(/[^a-zA-Z0-9\s]/g, " ");
+	}
 
 
 
@@ -2544,7 +2545,7 @@ function checkPoll2Layout() {
 		}
 		return a;
 	};
-	$("#ui-id-79").text("My Items");
+	
 	//getting faith and research bonuses
 	$().ready(function() {
 		$.ajax({
@@ -3077,91 +3078,232 @@ function checkPoll2Layout() {
 			WAR COUNC BUTTONS
 				buttons
         */
-		const returnAllbut = "<button id='returnAllb' style='right: 35.6%; margin-top: 55px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'>Return All</button>";
+
 		const raidbossbut = "<button id='raidbossGo' style='left: 65%;margin-left: 10px;margin-top: 15px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'>Boss Hunter</button>";
-		const attackbut = "<button id='attackGo' style='margin-left: 25px;margin-top: 55px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'>Attack Scheduler</button>";
+
+		const attackbut = "<button id='attackGo' style='margin-right: 10px;margin-top: 55px;width: 150px;height: 30px !important;font-size: 12px !important;position: absolute;right: 65%;' class='regButton greenb'>Attack Scheduler</button>";
+		const returnAllbut = "<button id='returnAllb' style='right: 35.6%; margin-top: 55px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'>Return All</button>";
 		const defbut = "<button id='defGo' style='left: 65%;margin-left: 10px;margin-top: 55px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'>Defense Scheduler</button>";
-		const quickdefbut = "<button id='quickdefCityGo' style='width:96%; margin-top:2%; margin-left:2%;' class='regButton greenbuttonGo greenb'> Quick Reinforcements</button>";
-		const neardefbut = "<button id='ndefGo' style='left: 4%;margin-left: 3px;margin-top: 95px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'> Nearest Defense</button>";
+		
+		const neardefbut = "<button id='ndefGo' style='margin-right: 10px;margin-top: 95px;width: 150px;height: 30px !important;font-size: 12px !important;position: absolute;right: 65%;' class='regButton greenb'> Nearest Defense</button>";
 		const totaloffbut = "<button id='toffGo' style='right: 35.6%; margin-top: 95px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;' class='regButton greenb'> Offensive list</button>";
 		const totaldefbut = "<button id='tdefGo' style='left: 65%;margin-top: 95px;margin-left: 10px;width: 150px;height: 30px !important;font-size: 12px !important;position: absolute;' class='regButton greenb'> Defensive list</button>";
+		
+		const raidingIncome ='<button id="checkResperHour" style="right: 35.6%; margin-top: 135px;width: 150px;height: 30px !important; font-size: 12px !important; position: absolute;" class="regButton greenb">Raiding Income</button>'
+		const combatCalcDK = "<button class='regButton greenb' id='CoCa' style='left: 65%;margin-top: 135px;margin-left: 10px;width: 150px;height: 30px !important;font-size: 12px !important;position: absolute;'>Combat Calculator</button>";
+
+		const quickdefbut = "<button id='quickdefCityGo' style='width:96%; margin-top:2%; margin-left:2%;' class='regButton greenbuttonGo greenb'> Quick Reinforcements</button>";
 		const addtoatt = "<button id='addtoAtt' style='margin-left: 7%;margin-top: -5%;width: 40%;height: 26px !important; font-size: 9px !important;' class='regButton greenb'>Add to Attack Scheduler</button>";
 		const addtodef = "<button id='addtoDef' style='margin-left: 7%;width: 40%;height: 26px !important; font-size: 9px !important;' class='regButton greenb'>Add to Defense Scheduler</button>";
+		
+		// Constants
+		const troopLoad = {Guard:0, Warship:3000, Druid:10, Priestess:10, Horseman:15, Scorpion:0, Sorcerer:5, Ballista:0, Scout:0, Praetor:20, Ranger:10, Arbalist:15, Ram:0, Vanquisher:10, Stinger:1500, Senator:0, Galley:1000, Triari:20};
+		const troopTypes = ["Guard", "Ballista", "Ranger", "Triari", "Priestess", "Vanquisher", "Sorcerer", "Scout", "Arbalist", "Praetor", "Horseman", "Druid", "Ram", "Scorpion", "Galley", "Stinger", "Warship"];
+		const raidLoot = [0, 400, 1000, 4500, 15000, 33000, 60000, 120000, 201000, 300000, 446000];
+		const troopSpeed = { Scout: 8, Horseman: 10, Druid: 10, Praetor: 10, Arbalist: 10, Vanquisher: 20, Sorcerer: 20, Ranger: 20, Triari: 20, Priestess: 20, Ram: 30, Ballista: 30, Scorpion: 30, Senator: 40, Stinger: 5, Galley: 5, Warship: 5 };
+		const researchValues = [0, 1, 3, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+
+		
+		// Calculate the resource per hour status
+		// Calculate the resource per hour status
+	function calculateResourcePerHourStatus() {
+		const SIResPerHour = [" ", " k", " m", " b", " t", " p", " e"];
+		let ResPerHourCid, ResPerHour, TotalResPerHour = 0, gfNumRaids = 0, gfNumRaidsCid = 0, resourceVal, ContResPerHour = new Array(60).fill(0), ContSperHour = "", gfTierSI, NContResPerHour = new Array(60).fill(0);
+	
+		gffetchRaids().then(raids => {
+		raids.a.forEach(city => {
+			ResPerHour = 0;
+			city[12].forEach(raid => {
+			resourceVal = 100;
+			raid[5].forEach(TrRaidando => {
+				if ([2, 3, 4, 5, 6].includes(TrRaidando.tt)) resourceVal = Math.min(resourceVal, researchValues[cotg.player.research()[8]]);
+				else if ([8, 9, 10, 11].includes(TrRaidando.tt)) resourceVal = Math.min(resourceVal, researchValues[cotg.player.research()[9]]);
+				else if ([14, 15, 16].includes(TrRaidando.tt)) resourceVal = Math.min(resourceVal, researchValues[cotg.player.research()[13]]);
+				ResPerHour += (1 > troopLoad[troopTypes[TrRaidando.tt]] * TrRaidando.tv / raidLoot[raid[2].match(/(?<=l\s).+?(?=\s\()/g)] / (2 - raid[2].match(/(?<=\().+?(?=\%)/g) / 100))
+				? troopLoad[troopTypes[TrRaidando.tt]] * TrRaidando.tv / (Math.sqrt(Math.pow(((raid[8] - raid[8] % 65536) / 65536 - (city[0] - city[0] % 65536) / 65536), 2) + Math.pow((raid[8] % 65536 - city[0] % 65536), 2)) * troopSpeed[troopTypes[TrRaidando.tt]] / (1 + resourceVal / 100) * 2 + 120) * 60
+				: raidLoot[raid[2].match(/(?<=vel\s).+?(?=\s\()/g)] / (2 - raid[2].match(/(?<=\().+?(?=\%)/g) / 100) / (Math.sqrt(Math.pow(((raid[8] - raid[8] % 65536) / 65536 - (city[0] - city[0] % 65536) / 65536), 2) + Math.pow((raid[8] % 65536 - city[0] % 65536), 2)) * troopSpeed[troopTypes[TrRaidando.tt]] / (1 + resourceVal / 100) * 2 + 120) * 60;
+				});
+
+				gfNumRaids++;
+				NContResPerHour[Number(city[2].split(" ")[1])]++;
+				if (Number($("#cityDropdownMenu option:selected").val()) == city[0]) gfNumRaidsCid++;
+				});
+
+				// Display the full number with commas
+				ResPerHourCid = (Number($("#cityDropdownMenu option:selected").val()) == city[0]) ? ResPerHour.toLocaleString() + " /Hour" : ResPerHourCid;
+				TotalResPerHour += (!isNaN(ResPerHour)) ? ResPerHour : 0;
+				ContResPerHour[Number(city[2].split(" ")[1])] += (!isNaN(ResPerHour)) ? ResPerHour : 0;
+				});
+
+				gfTierSI = Math.log10(TotalResPerHour) / 3 | 0;
+				ResPerHour = (gfTierSI != 0) ? Math.floor(TotalResPerHour / Math.pow(10, gfTierSI * 3)).toLocaleString() + SIResPerHour[gfTierSI] + " /Hour" : Math.floor(TotalResPerHour).toLocaleString() + " R/h";
+				let ContRows = "";
+				ContResPerHour.forEach((cont, ncont) => {
+				if (cont != 0) {
+					gfTierSI = Math.log10(cont) / 3 | 0;
+					const continentRow = `
+					<tr>
+						<td style='font-size:12px; text-align:center;'>C${ncont}</td>
+						<td style='font-size:12px; text-align:center;'>${(gfTierSI != 0) ? (cont / Math.pow(10, gfTierSI * 3)).toFixed(2).toLocaleString() + SIResPerHour[gfTierSI] + " /Hour" : cont.toFixed(2).toLocaleString() + " R/h"}</td>
+						<td style='font-size:12px; text-align:center;'>${NContResPerHour[ncont]} Raids (${Math.round(cont / TotalResPerHour * 100)}%)</td>
+					</tr>
+					`;
+					ContRows += continentRow;
+				}
+				});
+
+			const raidTableHTML = `
+			<table class='beigemenutable'>
+				<thead>
+				<tr>
+					<th style='font-size:16px; text-align:center;'>Location</th>
+					<th style='font-size:16px; text-align:center;'>Amounts</th>
+					<th style='font-size:16px; text-align:center;'>Raids</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td style='font-size:12px; text-align:center;'>Total</td>
+					<td style='font-size:12px; text-align:center;'>${ResPerHour}</td>
+					<td style='font-size:12px; text-align:center;'>${gfNumRaids} Raids</td>
+				</tr>
+				${ContRows}
+				<tr>
+					<td style='font-size:12px; text-align:center;'>Current City (${$('#cityDropdownMenu option:selected').val() % 65536}:${(Number($('#cityDropdownMenu option:selected').val()) - $('#cityDropdownMenu option:selected').val() % 65536) / 65536})</td>
+					<td style='font-size:12px; text-align:center;'>${ResPerHourCid}</td>
+					<td style='font-size:12px; text-align:center;'>${gfNumRaidsCid} Raids</td>
+				</tr>
+				</tbody>
+			</table>
+			`;
+
+
+		$("#checkRaidsperHour").html(raidTableHTML);
+		}).catch(error => {
+		console.error('Error in processing raids:', error);
+		});
+  	}
+  
+	// Fetch raids
+	function gffetchRaids() {
+		return fetch("overview/graid.php")
+		.then(response => {
+			if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return response.json();
+		})
+	}
+	
+	// Click handler
+	$(document).on("click", "#checkResperHour", function() {
+		if (!$("#checkResperHourBox").length) {
+		$("body").append(`
+			<div id='checkResperHourBox' class='popUpBox ui-resizable ui-draggable' style='z-index:20001; width:50%; position:absolute; '>
+			<div class='ppbwinbgr'>
+				<div class='ppbwintop' style='position: relative; height:150px; width:100%;'></div>
+				<div class='ppbwincent' style='position: relative; height:auto; width:100%;'></div>
+				<div class='ppbwinbott' style='position: relative; height:150px; width:100%;'></div>
+			</div>
+			<div class='ppbwincontent'>
+				<div class='popUpBar ui-draggable-handle' style='margin-top:7px;'>
+				<span class='ppspan'>Gfunky's Raiding Income</span>
+				<button id='gfraidincX' style='margin-top:5px;' class='xbutton' onclick='$("#checkResperHourBox").remove();'>
+					<div id='xbuttondiv'>
+					<div>
+						<div id='centxbuttondiv'></div>
+					</div>
+					</div>
+				</button>
+				</div>
+				<div style='text-align:center;'>
+				<button class="greenb" id="UpdateResPerH" style="border-radius:6px;width:298px;">Update</button>
+				<br/><br/><div id="checkRaidsperHour" class="beigemenutable scroll-pane" style="color:black;background: #e1c190;border-radius: 9px;border: 3px ridge tan;width: 80%;margin-left: auto;margin-right: auto;font-size: medium;">Computing...</div>
+				</div>
+			</div>
+			</div>`);
+	
+		$("#checkResperHourBox").draggable({ handle: ".popUpBar", containment: "window", scroll: false });
+		$("#UpdateResPerH").click(calculateResourcePerHourStatus);
+		calculateResourcePerHourStatus();
+		}
+	});
+  
 		//Boss Tab
 		const wartabs = [{
-    id: 'bosshuntab',
-    ariaControls: 'warBossmanager',
-    text: 'Boss Hunter',
-    href: '#warBossmanager'
-  },
-  {
-    id: 'attacktab',
-    ariaControls: 'warAttackmanager',
-    text: 'Attack Scheduler',
-    href: '#warAttackmanager'
-  },
-  {
-    id: 'deftab',
-    ariaControls: 'warDefmanager',
-    text: 'Defense Scheduler',
-    href: '#warDefmanager'
-  },
-  {
-    id: 'neardeftab',
-    ariaControls: 'warNdefmanager',
-    text: 'Nearby Def',
-    href: '#warNdefmanager'
-  },
-  {
-    id: 'totalofftab',
-    ariaControls: 'warToffmanager',
-    text: 'Offensive TS',
-    href: '#warToffmanager'
-  },
-  {
-    id: 'totaldeftab',
-    ariaControls: 'warTdefmanager',
-    text: 'Defensive TS',
-    href: '#warTdefmanager'
-  },
-];
+			id: 'bosshuntab',
+			ariaControls: 'warBossmanager',
+			text: 'Boss Hunter',
+			href: '#warBossmanager'
+		},
+		{
+			id: 'attacktab',
+			ariaControls: 'warAttackmanager',
+			text: 'Attack Scheduler',
+			href: '#warAttackmanager'
+		},
+		{
+			id: 'deftab',
+			ariaControls: 'warDefmanager',
+			text: 'Defense Scheduler',
+			href: '#warDefmanager'
+		},
+		{
+			id: 'neardeftab',
+			ariaControls: 'warNdefmanager',
+			text: 'Nearby Def',
+			href: '#warNdefmanager'
+		},
+		{
+			id: 'totalofftab',
+			ariaControls: 'warToffmanager',
+			text: 'Offensive TS',
+			href: '#warToffmanager'
+		},
+		{
+			id: 'totaldeftab',
+			ariaControls: 'warTdefmanager',
+			text: 'Defensive TS',
+			href: '#warTdefmanager'
+		},
+		];
 
-let tabsHTML = '';
+		let tabsHTML = '';
 
-// Split the wartabs array into two arrays
-const firstThreeTabs = wartabs.slice(0, 2);
-const lastThreeTabs = wartabs.slice(2);
+		// Split the wartabs array into two arrays
+		const firstThreeTabs = wartabs.slice(0, 2);
+		const lastThreeTabs = wartabs.slice(2);
 
-// Generate HTML for the first 3 tabs
-firstThreeTabs.forEach(({
-  id,
-  ariaControls,
-  text,
-  href
-}) => {
-  tabsHTML += `
-        <li id="${id}" class="ui-state-default" role="tab" tabindex="-1" aria-controls="${ariaControls}" aria-labeledby="ui-id-20" aria-selected="false" aria-expanded="false" style='height:21px;'>
-          <a href="${href}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-20">${text}</a>
-        </li>
-    `;
-});
+		// Generate HTML for the first 3 tabs
+		firstThreeTabs.forEach(({
+		id,
+		ariaControls,
+		text,
+		href
+		}) => {
+		tabsHTML += `
+				<li id="${id}" class="ui-state-default" role="tab" tabindex="-1" aria-controls="${ariaControls}" aria-labeledby="ui-id-20" aria-selected="false" aria-expanded="false" style='height:21px;'>
+				<a href="${href}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-20">${text}</a>
+				</li>
+			`;
+		});
 
-// Add a line break
-tabsHTML += '<br>';
+		// Add a line break
+		tabsHTML += '<br>';
 
-// Generate HTML for the last 3 tabs
-lastThreeTabs.forEach(({
-  id,
-  ariaControls,
-  text,
-  href
-}) => {
-  tabsHTML += `
-        <li id="${id}" class="ui-state-default" role="tab" tabindex="-1" aria-controls="${ariaControls}" aria-labeledby="ui-id-20" aria-selected="false" aria-expanded="false" style='height:21px;'>
-          <a href="${href}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-20">${text}</a>
-        </li>
-    `;
-});
+		// Generate HTML for the last 3 tabs
+		lastThreeTabs.forEach(({
+		id,
+		ariaControls,
+		text,
+		href
+		}) => {
+		tabsHTML += `
+				<li id="${id}" class="ui-state-default" role="tab" tabindex="-1" aria-controls="${ariaControls}" aria-labeledby="ui-id-20" aria-selected="false" aria-expanded="false" style='height:21px;'>
+				<a href="${href}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-20">${text}</a>
+				</li>
+			`;
+		});
 
 
 		let bosstabbody = `
@@ -3463,6 +3605,13 @@ lastThreeTabs.forEach(({
 		</div>
 		</div>
 		</div>`;
+
+		'use strict';
+
+		
+
+
+
 		//BUTTONS  on War Council Tab
 		const tabs = $("#warcouncTabs").tabs();
 		const ul = tabs.find("ul");
@@ -3486,14 +3635,14 @@ lastThreeTabs.forEach(({
 		$("#defpreset").hide();
 
 		$("#dret").hide();
-		$("#warCounc").append(returnAllbut, attackbut, defbut, neardefbut, totaloffbut, totaldefbut)
+		$("#warCounc").append(returnAllbut, attackbut, defbut, neardefbut, totaloffbut, totaldefbut, combatCalcDK,raidingIncome);
 		$("#coordstochatGo1").after(addtoatt);
 		$("#addtoAtt").after(addtodef);
 		$("#loccavwarconGo").css("right", "65%");
 		$("#idluniwarconGo").css("left", "34%");
 		$("#idluniwarconGo").after(raidbossbut);
 		$('#CheckResHora').css("right", "");
-		$('#CheckResHora').css("margin-top", "135px");
+		$('#CheckResHora').css("margin-top", "335px");
 		$('#CheckResHora').css("left", "35.9%");
 		$('#defdeparture').change(function() {
 			($('#defdeparture').val() === '0') ? $('#deftime, #dret, #defpreset').hide(): $('#deftime, #dret, #defpreset').show();
@@ -5802,20 +5951,29 @@ resetAttackOrders();
 		});
 		$("#recruitmentQueue").before(bdcountbox);
 		//Updated 3.10.23 Fact
-		$("#bdcountbut").click(function() {
+		$("#bdcountbar").click(function() {
 			const $bdcountwin = $("#bdcountwin");
-			const $bdcountbut = $(this);
+			const $bdcountbut = $('#bdcountbut');
 
 			$bdcountwin.toggle();
 			$bdcountbut.toggleClass("tradeqarr1 tradeqarr2");
 			bdcountshow = $bdcountwin.is(":visible");
+			
+				$.ajax({
+					url: 'includes/gC.php',
+					type: 'POST',
+					async: true,
+					data: "1"
+				});
+				console.log('gC called');
+			
 		});
 
 
 		//Updated 3.10.23 Fact
-		$("#qbcbut").click(function() {
+		$("#qb23").click(function() {
 			const $qbwin = $("#qbwin");
-			const $qbcbut = $(this);
+			const $qbcbut = $('#qbcbut');
 			$qbwin.toggle();
 			$qbcbut.toggleClass("tradeqarr1 tradeqarr2");
 			qbcshow = $qbwin.is(":visible");
@@ -5854,8 +6012,12 @@ resetAttackOrders();
 		$("#food45").click(() => setResourceAmount("food", 0.45));
 	});
 	//Updated 3.10.23 Fact
-
-	function makebuildcount() {
+	$(document).ready(function() {
+		makebuildcount();
+		setInterval(makebuildcount, 10000); // 10000 milliseconds = 10 seconds
+	  });
+	  
+	  function makebuildcount() {
 		$("#bdtable").remove();
 		const currentbd = {
 			name: [],
@@ -5886,7 +6048,6 @@ resetAttackOrders();
 		$("#bdcountwin").html(bdtable);
 		$("#numbdleft").html(bdNumber);
 	}
-	setInterval(makebuildcount, 10000); // 10000 milliseconds = 10 seconds
 	// New - Building Data Table 3.10.23 Fact
 	function createBdTable(currentbd) {
 		let bdtable = `<table id='bdtable' style='margin-left: auto; margin-right: auto;'>
@@ -5913,6 +6074,8 @@ resetAttackOrders();
 			  </table>`;
 		return bdtable;
 	}
+	  
+  
 
 	//Updated 3.3.23 Fact
 	async function recallraidl100(citytc, TS_type, TroopLootIndex, MountainLootIndex, ForestHillLootIndex) {
@@ -7979,12 +8142,11 @@ resetAttackOrders();
 	//incoming and outoging summary window from inside the ingame attacks (NOT PART OF  GFUNKY OVERVIEWS)
 	$().ready(function() {
 		
-		$('#ui-id-35').text("Outgoing");
-		$('#ui-id-36').text("Off History");
-		$('#ui-id-37').text("Incoming");
-		$('#ui-id-38').text("Def History");
-		$('#ui-id-39').text("Blessed");
-		
+		$('a[href="#incomingstab"]').text("Incoming");
+		$('a[href="#outgoingstab"]').text("Outgoing");
+		$('a[href="#offenseHistTab"]').text("Off History");
+		$('a[href="#defenseHistTab"]').text("Def History");
+		$('a[href="#favoredcitiestab"]').text("Blessed");
 		
 
 
@@ -9618,21 +9780,27 @@ resetAttackOrders();
 		gfunkyoverviewwin += "<div id='gfunkyoverviewdiv' class='beigetabspopup' style='background:none;border: none;padding: 0px;height:74%; width:97%; margin-left:auto; margin-right:auto;'>";
 		const tabs = [{
 				href: '#resTab',
+				id: 'resTabGF',
 				text: 'Resources'
 			}, {
 				href: '#troopsTab',
+				id: 'troopsTabGF',
 				text: 'Troops'
 			}, {
 				href: '#raidTab',
+				id: 'raidTabGF',
 				text: 'Raid Reports'
 			}, {
 				href: '#raidoverTab',
+				id: 'raidoverTabGF',
 				text: 'Active Raids'
 			}, {
 				href: '#gsupportTab',
+				id: 'gsupportTabGF',
 				text: 'Support'
 			}, {
 				href: '#findmysenTab',
+				id: 'findmtsenTabGF',
 				text: 'Senator'
 			},
 			//{ href: '#gworldTab', text: 'World' }
@@ -9641,7 +9809,7 @@ resetAttackOrders();
 		for (const tab of tabs) {
 			listItems += `
 					<li role='tab'>
-					  <a href='${tab.href}' role='presentation'>${tab.text}</a>
+					  <a href='${tab.href}' id='${tab.id}' role='presentation'>${tab.text}</a>
 					</li>
 				  `;
 		}
@@ -11322,8 +11490,8 @@ resetAttackOrders();
 		let towerpri;
 		let norbali;
 		let towerbali;
-		const dkumar = "<button class='regButton greenb' id='CoCa' style='margin-left: 10px;margin-top: 135px;width: 150px;height: 30px !important;font-size: 12px !important;position: absolute;left: 65%;'>Combat Calculator</button>";
-		$("#warCounc").append(dkumar);
+		
+		
 		$("#CoCa").click(function() {
 			if (sum) {
 				combcal();
@@ -12026,7 +12194,7 @@ resetAttackOrders();
 			</button>
 			</div>
 			<div id="popkumar" class="popUpWindow" style="margin-left:auto; margin-right:auto;">
-			//Section 1
+			
 			<div id = "toptxt" style="width: 90%;margin-left: auto;margin-right: auto; font-size:12px; text-align:center;">NP:<input type="text" id="NightP" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">
 			Portal: <input type="text" id="MGpen" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">
 			Morale: <input type="text" id="Ascore" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">
@@ -12035,7 +12203,6 @@ resetAttackOrders();
 			<span>Ranger=<input type="text" id="rangt" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">Triari=<input type="text" id="trit" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">Priestess=<input type="text" id="prit" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">Balista=<input type="text" id="balit" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;">
 			<br>Walls lvl: <input type="text" id="Wall" size="1" value="0" style="font-weight: bold; border-radius: 6px;background: #e1c190;color: black;text-align: center;"></span>
 			</div>
-			//Section 2
 			<div id="chart" style="height:90%; line-height:90%;">
 			<table id = "tab" style="width:90%; margin-left:auto; margin-right:auto; font-size:10px;">
 			<tr>
