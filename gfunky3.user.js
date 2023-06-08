@@ -3822,11 +3822,11 @@ function checkPoll2Layout() {
 		$("#addtoAtt").click(function() {
 			for (let i = 1; i < 16; i++) {
 				if (!$(`#t${i}x`).val()) {
-					var tid = Number($("#showReportsGo").attr("data"));
+					var tid =$("#citycoords").text().split(":");
 					var tempx;
 					var tempy;
-					tempx = Number(tid % 65_536);
-					tempy = Number((tid - tempx) / 65_536);
+					tempx = Number(tid[0]);
+					tempy = Number(tid[1]);
 					$(`#t${i}x`).val(tempx);
 					$(`#t${i}y`).val(tempy);
 					break;
@@ -3836,11 +3836,11 @@ function checkPoll2Layout() {
 		$("#addtoDef").click(function() {
 			for (let i = 1; i < 16; i++) {
 				if (!$(`#d${i}x`).val()) {
-					var tid = Number($("#showReportsGo").attr("data"));
+					var tid = $("#citycoords").text().split(":");
 					var tempx;
 					var tempy;
-					tempx = Number(tid % 65_536);
-					tempy = Number((tid - tempx) / 65_536);
+					tempx = Number(tid[0]);
+					tempy = Number(tid[1]);
 					$(`#d${i}x`).val(tempx);
 					$(`#d${i}y`).val(tempy);
 					break;
@@ -3848,11 +3848,11 @@ function checkPoll2Layout() {
 			}
 		});
 		$("#quickdefCityGo").click(function() {
-			const tid = Number($("#showReportsGo").attr("data"));
+			const tid = $("#citycoords").text().split(":");
 			let tempx;
 			let tempy;
-			tempx = Number(tid % 65_536);
-			tempy = Number((tid - tempx) / 65_536);
+			tempx = Number(tid[0]);
+			tempy = Number(tid[1]);
 			const defobj = {
 				targets: {
 					x: [tempx],
