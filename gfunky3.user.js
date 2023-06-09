@@ -12,8 +12,8 @@
 // ==/UserScript==
 /*
 
-Version:  3.2.6.4
-Last Modified:  June 4,2023
+Version:  3.2.6.8
+Last Modified:  June 8,2023
 
 
  */
@@ -53,9 +53,9 @@ Last Modified:  June 4,2023
 			  <br>
 			  <div id='bottomcrownpic'></div>
 			  <span style='margin-left: 5%;'>
-				<h4 style='text-align:center;color:green;'>Update 3.2.5</h4>
+				<h4 style='text-align:center;color:green;'>Update 3.2.6</h4>
 				<br>
-				<h4 style='text-align:center;color:green;'>May 7, 2023</h4>
+				<h4 style='text-align:center;color:green;'>June 8, 2023</h4>
 			  </span>
 			  <br>
 			  <br>
