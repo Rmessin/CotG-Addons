@@ -12,62 +12,61 @@
 // ==/UserScript==
 /*
 
-Version:  3.2.6.8
-Last Modified:  June 8,2023
+Version:  3.2.6.19
+Last Modified:  June 19,2023
 
 
  */
 (function() {
-
-
-
-
-
-  $(() => {
-	const startupWindowContent = `
-	  <div id='startwinDiv' class='popUpBox ui-draggable'>
-		<div class='ppbwinbgr ui-draggable'>
-		  <div class='ppbwintop ui-draggable'></div>
-		  <div class='ppbwincent ui-draggable'></div>
-		  <div class='ppbwinbott ui-draggable'></div>
-		</div>
-		<div class='ppbwincontent ui-draggable'>
-		  <div class='popUpBar ui-draggable-handle'>
-			<span class='smppspan'>Gfunky+ By Fact and Greety </span>
-			<button id='gfunkyX' class='xbutton' onclick=$('#startwinDiv').remove()>
-			  <div id='xbuttondiv'>
-				<div>
-				  <div id='centxbuttondiv'></div>
-				</div>
-			  </div>
-			</button>
+	const version = '3.2.6';
+	const LMD = new Date('June 19, 2023');
+  
+	$(() => {
+	  const startupWindowContent = `
+		<div id='startwinDiv' class='popUpBox ui-draggable'>
+		  <div class='ppbwinbgr ui-draggable'>
+			<div class='ppbwintop ui-draggable'></div>
+			<div class='ppbwincent ui-draggable'></div>
+			<div class='ppbwinbott ui-draggable'></div>
 		  </div>
-		  <div id='announcWindow' style='overflow-y:auto;'>
-			<div style='text-align:center;'>
-			  <span style='margin-left: 5%;'>
-				<h1 style='text-align:center;'>
-				  <img src='https://cotgopt.com/images/icons/Gfunkylogo21a.png'>
-				  <br> By Fact and Greety
-				</h1>
-			  </span>
-			  <br>
-			  <div id='bottomcrownpic'></div>
-			  <span style='margin-left: 5%;'>
-				<h4 style='text-align:center;color:green;'>Update 3.2.6</h4>
+		  <div class='ppbwincontent ui-draggable'>
+			<div class='popUpBar ui-draggable-handle'>
+			  <span class='smppspan'>Gfunky+ By Fact and Greety </span>
+			  <button id='gfunkyX' class='xbutton' onclick=$('#startwinDiv').remove()>
+				<div id='xbuttondiv'>
+				  <div>
+					<div id='centxbuttondiv'></div>
+				  </div>
+				</div>
+			  </button>
+			</div>
+			<div id='announcWindow' style='overflow-y:auto;'>
+			  <div style='text-align:center;'>
+				<span style='margin-left: 5%;'>
+				  <h1 style='text-align:center;'>
+					<img src='https://cotgopt.com/images/icons/Gfunkylogo21a.png'>
+					<br> By Fact and Greety
+				  </h1>
+				</span>
 				<br>
-				<h4 style='text-align:center;color:green;'>June 8, 2023</h4>
-			  </span>
-			  <br>
-			  <br>
-			  <span style='margin-left: 5%;'>
-				<h5 style='text-align:center;'>Special Thanks to Everyone who continues to support this project </h5>
-				<ul style='margin-left: 6%;font-size:14px !important;'></ul>
-			  </span>
+				<div id='bottomcrownpic'></div>
+				<span style='margin-left: 5%;'>
+				  <h4 style='text-align:center;color:green;'>Update <span id="version">${version}</span></h4>
+				  <br>
+				  <h4 style='text-align:center;color:green;'><span id="LMD">${LMD.toLocaleDateString()}</span></h4>
+				</span>
+				<br>
+				<br>
+				<span style='margin-left: 5%;'>
+				  <h5 style='text-align:center;'>Special Thanks to Everyone who continues to support this project </h5>
+				  <ul style='margin-left: 6%;font-size:14px !important;'></ul>
+				</span>
+			  </div>
 			</div>
 		  </div>
 		</div>
-	  </div>
-	`;
+	  `;
+	  
 	$('body').append(startupWindowContent);
 	setTimeout(function() {
 			var options = {};
@@ -4044,63 +4043,105 @@ function checkPoll2Layout() {
 
 		// Add a click event listener to the #scheduleButton element
 		$("#scheduleButton").click(function() {
-    // Call the function to reset the attack orders
-    resetAttackOrders();
-    var content = "";
-    $("#mailrMess p, #mailrMess td").each(function() {
-        content += $(this).html().replace(/<br\s*[\/]?>/gi, "\n").replace(/(?:^|\n)((?:\w+\s+){1,3}\w+:)(\s*<br>)/gi, "$1\n");
-    });
-    Aimp(content);
-    alert("Any previous orders have been cleared. New orders have been imported to the Attack Scheduler and are ready to be used!");
-    setTimeout(function() {
-        // Remove the alert after 5 seconds
-        $('.alert').remove();
-    }, 2000);
-});
+			// Call the function to reset the attack orders
+			resetAttackOrders();
+			// Select the entire mail element instead of individual paragraphs or cells
+			var mailElement = $("#mailrMess");  // Update this selector if needed
+			var content = mailElement.text()
+			  .replace(/<br\s*[\/]?>/gi, "\n")
+			  .replace(/(?:^|\n)((?:\w+\s+){1,3}\w+:)(\s*<br>)/gi, "$1\n");
+			Aimp(content);
+			alert("Any previous orders have been cleared. New orders have been imported to the Attack Scheduler and are ready to be used!");
+			setTimeout(function() {
+				// Remove the alert after 5 seconds
+				$('.alert').remove();
+			}, 2000);
+		});
+		
+		
 
 	});
 
 
-let jsonStrings = [];
-let orderCounts = {};
+	let jsonStrings = [];
+	let orderCounts = {};
 
-function Aimp(str) {
-  // Remove HTML tags and trim the string
-  const cleanStr = str.replace(/<\/?[^>]+(>|$)/g, "").trim();
+	function Aimp(str) {
+		// Remove HTML tags and trim the string
+		const cleanStr = str.replace(/<\/?[^>]+(>|$)/g, "").trim();
+		
+		// Reset the JSON strings and order counts
+		jsonStrings = [];
+		orderCounts = {};
+	
+		const lines = cleanStr.split("\n");
+		for (let line of lines) {
+			line = line.trim();
+			if (!line) continue;
 
-  const lines = cleanStr.split("\n");
-  for (let line of lines) {
-    const match = line.match(/{.*}/);
-    if (match) {
-      const orderName = line.split(":")[0].trim();
-      if (!orderCounts[orderName]) {
-        orderCounts[orderName] = 0;
-      }
-      orderCounts[orderName]++;
-      const nameWithCount = `${orderName} #${orderCounts[orderName]}`;
-      jsonStrings.push({ name: nameWithCount, json: match[0] });
-      $(`#orders-dropdown`).append(`<option value=${jsonStrings.length - 1}>${nameWithCount}</option>`);
-      console.log(nameWithCount);
-    }
-  }
+			// Skip the metadata lines
+			if (line.startsWith("From:") || line.startsWith("Date:") || line.startsWith("Subject:") || line.startsWith("--------")) {
+				continue;
+			}
 
-  // regenerate the dropdown options
-  $("#orders-dropdown").empty();
-  $("#orders-dropdown").append(`<option value="">Choose Your Attack Order </option>`);
+			// Check if the line is parsable as JSON
+			let isJson = true;
+			try {
+				JSON.parse(line);
+			} catch (e) {
+				isJson = false;
+			}
 
-  // set the default selection to the first string if there is only one string
-  if (jsonStrings.length === 1) {
-    $("#orders-dropdown").append(`<option value="0" selected>${jsonStrings[0].name}</option>`);
-    updateForm(0);
-  } else {
-    // add other strings to the dropdown
-    for (let i = 0; i < jsonStrings.length; i++) {
-      if (i !== 0 || jsonStrings.length > 1) {
-        $(`#orders-dropdown`).append(`<option value=${i}>${jsonStrings[i].name}</option>`);
-      }
-    }
-  }
-}
+			let orderName;
+			let jsonString;
+
+			if (isJson) {
+				// If the line is a JSON string, assign "Attack Order" as the default name
+				orderName = "Attack Order";
+				jsonString = line;
+			} else {
+				// If the line is not a JSON string, attempt to split it into a name and JSON string
+				const match = line.match(/(.*?)(?=\s*\{)(.*)/s);
+				if (match) {
+					orderName = match[1].trim();
+					jsonString = match[2].trim();
+				}
+			}
+
+			// Skip the line if no valid JSON string was found
+			if (!jsonString) {
+				continue;
+			}
+
+			if (!orderCounts[orderName]) {
+				orderCounts[orderName] = 0;
+			}
+			orderCounts[orderName]++;
+			const nameWithCount = `${orderName} #${orderCounts[orderName]}`;
+			jsonStrings.push({ name: nameWithCount, json: jsonString });
+			console.log(nameWithCount);
+		}
+
+
+
+  
+		// Regenerate the dropdown options
+		$("#orders-dropdown").empty();
+		$("#orders-dropdown").append(`<option value="">Choose Your Attack Order </option>`);
+	
+		// set the default selection to the first string if there is only one string
+		if (jsonStrings.length === 1) {
+		$("#orders-dropdown").append(`<option value="0" selected>${jsonStrings[0].name}</option>`);
+		updateForm(0);
+		} else {
+			// add other strings to the dropdown
+			for (let i = 0; i < jsonStrings.length; i++) {
+				if (i !== 0 || jsonStrings.length > 1) {
+				$(`#orders-dropdown`).append(`<option value=${i}>${jsonStrings[i].name}</option>`);
+				}
+			}
+		}
+	}
 
 function updateForm(selectedIndex) {
   // Check if the orderName string contains the type of attack
@@ -5959,14 +6000,14 @@ resetAttackOrders();
 			$bdcountbut.toggleClass("tradeqarr1 tradeqarr2");
 			bdcountshow = $bdcountwin.is(":visible");
 			
-				$.ajax({
+			/*	$.ajax({
 					url: 'includes/gC.php',
 					type: 'POST',
 					async: true,
-					data: "1"
+					data: poll2.city.id
 				});
 				console.log('gC called');
-			
+			*/
 		});
 
 
@@ -6014,7 +6055,7 @@ resetAttackOrders();
 	//Updated 3.10.23 Fact
 	$(document).ready(function() {
 		makebuildcount();
-		setInterval(makebuildcount, 10000); // 10000 milliseconds = 10 seconds
+		//setInterval(makebuildcount, 15000); // 10000 milliseconds = 10 seconds
 	  });
 	  
 	  function makebuildcount() {
